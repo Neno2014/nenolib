@@ -14,7 +14,7 @@ public class MainActivity extends Activity {
 
 	private GLSurfaceView surface;
 	private boolean rendererEstablecido = false;
-	private MiRenderer renderer = new MiRenderer();
+	private MiRenderer renderer = new MiRenderer(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

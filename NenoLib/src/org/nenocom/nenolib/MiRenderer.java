@@ -3,15 +3,25 @@ package org.nenocom.nenolib;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import org.nenocom.objects.UniformColorRect;
+
+import android.content.Context;
+import android.graphics.Color;
 import android.opengl.GLSurfaceView.Renderer;
 import static android.opengl.GLES20.*;
 
 public class MiRenderer implements Renderer {
 
+	private UniformColorRect miRect;
+
+	public MiRenderer(Context context) {
+		miRect = new UniformColorRect(context, 0.4f, 0.4f, Color.BLUE);
+	}
+
 	@Override
 	public void onDrawFrame(GL10 arg0) {
 		glClear(GL_COLOR_BUFFER_BIT);
-		
+		miRect.onDrawFrame();
 	}
 
 	@Override
@@ -23,7 +33,7 @@ public class MiRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
 		glClearColor(0f, 1f, 0f, 1f);
-		
+		miRect.onSurfaceCreated();
 	}
 
 }
