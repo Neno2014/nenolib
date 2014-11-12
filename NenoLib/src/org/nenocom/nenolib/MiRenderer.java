@@ -5,6 +5,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import org.nenocom.objects.ShadedRectangle;
 import org.nenocom.objects.UniformColorRect;
+import org.nenocom.utils.MatrixHelper;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -16,26 +17,39 @@ public class MiRenderer implements Renderer {
 	private UniformColorRect miRect;
 	private ShadedRectangle miRect2;
 	private ShadedRectangle miRect3;
+	private float[] projectionMatrix = new float[16];
 
 	public MiRenderer(Context context) {
 		miRect = new UniformColorRect(context, 0.4f, 0.4f, Color.RED);
 		miRect2 = new ShadedRectangle(context, -0.4f, -0.4f, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW);
 		miRect3 = new ShadedRectangle(context, -0.4f, 0.4f, Color.BLUE, Color.YELLOW, Color.BLUE, Color.YELLOW);
+		miRect3.translate(0, 0, -2);
+		miRect2.translate(0, 0, -2);
+		miRect.translate(0, 0, -2);
 		
 	}
 
 	@Override
 	public void onDrawFrame(GL10 arg0) {
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		miRect.translate(0.003f, 0, 0);
+		miRect2.translate(0, 0.003f, 0);
+		
+		miRect3.rotate(2f, 1f, 0, 0);
+		
+		miRect3.onDrawFrame();
 		miRect.onDrawFrame();
 		miRect2.onDrawFrame();
-		miRect3.onDrawFrame();
-		
 	}
 
 	@Override
 	public void onSurfaceChanged(GL10 arg0, int width, int height) {
 		glViewport(0, 0, width, height);
+		MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width / (float) height, 1f, 100f);
+		miRect3.setProjectionMatrix(projectionMatrix);
+		miRect2.setProjectionMatrix(projectionMatrix);
+		miRect.setProjectionMatrix(projectionMatrix);
 		
 	}
 

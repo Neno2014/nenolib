@@ -46,6 +46,7 @@ public class UniformColorRect extends Rectangle {
 		super.shaderProgram = ShaderHelper.buildProgram(vertexShaderSource, fragmentShaderSource);
 		glUseProgram(shaderProgram);
 		uColorLocation = glGetUniformLocation(shaderProgram, U_COLOR);
+		
 		super.aPositionLocation = glGetAttribLocation(shaderProgram, A_POSITION);
 		
 	}
