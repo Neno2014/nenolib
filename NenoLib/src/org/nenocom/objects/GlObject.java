@@ -1,5 +1,10 @@
 package org.nenocom.objects;
 
+import static android.opengl.GLES20.GL_FLOAT;
+import static android.opengl.GLES20.glEnableVertexAttribArray;
+import static android.opengl.GLES20.glUseProgram;
+import static android.opengl.GLES20.glVertexAttribPointer;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -13,6 +18,7 @@ public abstract class GlObject {
 	protected static final int COMPONENTES_POR_VERTICE = 3;
 	
 	protected int aPositionLocation;
+	protected int shaderProgram;
 	
 	protected final FloatBuffer vertexData;
 	protected Context context;
@@ -31,7 +37,9 @@ public abstract class GlObject {
 	}
 
 	public void onDrawFrame() {
-		// TODO Auto-generated method stub
-		
+		glUseProgram(shaderProgram);
+		vertexData.position(0);
+		glVertexAttribPointer(aPositionLocation, COMPONENTES_POR_VERTICE, GL_FLOAT, false, 0, vertexData);
+		glEnableVertexAttribArray(aPositionLocation);
 	}
 }

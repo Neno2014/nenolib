@@ -3,6 +3,7 @@ package org.nenocom.nenolib;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import org.nenocom.objects.ShadedRectangle;
 import org.nenocom.objects.UniformColorRect;
 
 import android.content.Context;
@@ -13,11 +14,13 @@ import static android.opengl.GLES20.*;
 public class MiRenderer implements Renderer {
 
 	private UniformColorRect miRect;
-	private UniformColorRect miRect2;
+	private ShadedRectangle miRect2;
+	private ShadedRectangle miRect3;
 
 	public MiRenderer(Context context) {
 		miRect = new UniformColorRect(context, 0.4f, 0.4f, Color.RED);
-		miRect2 = new UniformColorRect(context, -0.4f, -0.4f, Color.BLUE);
+		miRect2 = new ShadedRectangle(context, -0.4f, -0.4f, Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW);
+		miRect3 = new ShadedRectangle(context, -0.4f, 0.4f, Color.BLUE, Color.YELLOW, Color.BLUE, Color.YELLOW);
 		
 	}
 
@@ -26,6 +29,7 @@ public class MiRenderer implements Renderer {
 		glClear(GL_COLOR_BUFFER_BIT);
 		miRect.onDrawFrame();
 		miRect2.onDrawFrame();
+		miRect3.onDrawFrame();
 		
 	}
 
@@ -40,6 +44,7 @@ public class MiRenderer implements Renderer {
 		glClearColor(0f, 1f, 0f, 1f);
 		miRect.onSurfaceCreated();
 		miRect2.onSurfaceCreated();
+		miRect3.onSurfaceCreated();
 		
 	}
 
