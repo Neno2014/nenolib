@@ -4,12 +4,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import org.nenocom.objects.ShadedRectangle;
-import org.nenocom.objects.TexturedObject;
 import org.nenocom.objects.TexturedRect;
 import org.nenocom.objects.UniformColorRect;
 import org.nenocom.utils.MatrixHelper;
-import org.nenocom.utils.TextureHelper;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.opengl.GLSurfaceView.Renderer;
@@ -43,7 +40,7 @@ public class MiRenderer implements Renderer {
 		miRect2.translate(0, 0.003f, 0);
 		
 		miRect3.rotate(2f, 1f, 0, 0);
-		miTexturedRect.rotate(2f, 0, 1, 0);
+		miTexturedRect.rotate(2f, 0, 0, 1);
 		miRect3.onDrawFrame();
 		miRect.onDrawFrame();
 		miRect2.onDrawFrame();
