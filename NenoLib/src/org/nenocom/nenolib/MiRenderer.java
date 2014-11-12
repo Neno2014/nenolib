@@ -4,8 +4,11 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import org.nenocom.objects.ShadedRectangle;
+import org.nenocom.objects.TexturedObject;
+import org.nenocom.objects.TexturedRect;
 import org.nenocom.objects.UniformColorRect;
 import org.nenocom.utils.MatrixHelper;
+import org.nenocom.utils.TextureHelper;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -18,6 +21,8 @@ public class MiRenderer implements Renderer {
 	private ShadedRectangle miRect2;
 	private ShadedRectangle miRect3;
 	private float[] projectionMatrix = new float[16];
+	private TexturedRect miTexturedRect;
+	private Context context;
 
 	public MiRenderer(Context context) {
 		miRect = new UniformColorRect(context, 0.4f, 0.4f, Color.RED);
@@ -26,7 +31,7 @@ public class MiRenderer implements Renderer {
 		miRect3.translate(0, 0, -2);
 		miRect2.translate(0, 0, -2);
 		miRect.translate(0, 0, -2);
-		
+		this.context = context;
 	}
 
 	@Override
@@ -41,6 +46,7 @@ public class MiRenderer implements Renderer {
 		miRect3.onDrawFrame();
 		miRect.onDrawFrame();
 		miRect2.onDrawFrame();
+		miTexturedRect.onDrawFrame();
 	}
 
 	@Override
@@ -50,16 +56,19 @@ public class MiRenderer implements Renderer {
 		miRect3.setProjectionMatrix(projectionMatrix);
 		miRect2.setProjectionMatrix(projectionMatrix);
 		miRect.setProjectionMatrix(projectionMatrix);
+		miTexturedRect.setProjectionMatrix(projectionMatrix);
 		
 	}
 
 	@Override
 	public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
 		glClearColor(0f, 1f, 0f, 1f);
+		int texture = TextureHelper.loadTexture(context, R.drawable.textura);
+		miTexturedRect = new TexturedRect(context, 0.4f, -0.4f, texture);
 		miRect.onSurfaceCreated();
 		miRect2.onSurfaceCreated();
 		miRect3.onSurfaceCreated();
-		
+		miTexturedRect.onSurfaceCreated();
 	}
 
 }
