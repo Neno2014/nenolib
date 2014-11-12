@@ -9,6 +9,7 @@ import java.nio.FloatBuffer;
 import org.nenocom.nenolib.R;
 import org.nenocom.utils.LectorDeRecursos;
 import org.nenocom.utils.ShaderHelper;
+import org.nenocom.utils.TextureHelper;
 
 import android.content.Context;
 
@@ -20,18 +21,17 @@ public class TexturedObject extends GlObject {
 	
 	protected int uTextureUnitLocation;
 	protected int aTextureCoordinatesLocation;
-	
 	protected final FloatBuffer textureCoordsData;
+	
 	private int textureId;
 	
-	public TexturedObject(Context context, float[] vertices, float[] texCoords, int texId) {
+	public TexturedObject(Context context, float[] vertices, float[] texCoords) {
 		super(context, vertices);
 		textureCoordsData = ByteBuffer
 				.allocateDirect(texCoords.length * BYTES_PER_FLOAT)
 				.order(ByteOrder.nativeOrder())
 				.asFloatBuffer();
 		textureCoordsData.put(texCoords);
-		textureId = texId;
 	}
 	
 	@Override
@@ -40,17 +40,19 @@ public class TexturedObject extends GlObject {
 				.leerTxtDeRecursos(context, R.raw.texture_vertex_shader);
 		String fragmentShaderSource = LectorDeRecursos
 				.leerTxtDeRecursos(context, R.raw.texture_fragment_shader);
-		
+		textureId = TextureHelper.loadTexture(context, R.drawable.textura);
 		shaderProgram = ShaderHelper.buildProgram(vertexShaderSource, fragmentShaderSource);
 		glUseProgram(shaderProgram);
-		uTextureUnitLocation = glGetUniformLocation(shaderProgram, U_TEXTURE_UNIT);
-		aPositionLocation = glGetAttribLocation(shaderProgram, A_POSITION);
-		aTextureCoordinatesLocation = glGetAttribLocation(shaderProgram, A_TEXTURE_COORDINATES);
+		
 	}
 	
 	@Override
 	public void onDrawFrame(){
 		super.onDrawFrame();
+		glUseProgram(shaderProgram);
+		uTextureUnitLocation = glGetUniformLocation(shaderProgram, U_TEXTURE_UNIT);
+		aPositionLocation = glGetAttribLocation(shaderProgram, A_POSITION);
+		aTextureCoordinatesLocation = glGetAttribLocation(shaderProgram, A_TEXTURE_COORDINATES);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		glUniform1i(uTextureUnitLocation, 0);

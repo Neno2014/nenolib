@@ -4,7 +4,7 @@ import android.content.Context;
 
 public class TexturedRect extends TexturedObject {
 
-	public TexturedRect(Context context, float ancho, float alto, int texId) {
+	public TexturedRect(Context context, float ancho, float alto) {
 		super(context, new float[]{
 				//x y z
 				0f, 0f, 0f,
@@ -23,7 +23,7 @@ public class TexturedRect extends TexturedObject {
 				0f, 0f,
 				1f, 0f,
 				1f, 1f
-		},texId);
+		});
 	}
 
 }

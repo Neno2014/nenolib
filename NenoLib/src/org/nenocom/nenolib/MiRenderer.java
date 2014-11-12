@@ -31,6 +31,7 @@ public class MiRenderer implements Renderer {
 		miRect3.translate(0, 0, -2);
 		miRect2.translate(0, 0, -2);
 		miRect.translate(0, 0, -2);
+		
 		this.context = context;
 	}
 
@@ -42,7 +43,7 @@ public class MiRenderer implements Renderer {
 		miRect2.translate(0, 0.003f, 0);
 		
 		miRect3.rotate(2f, 1f, 0, 0);
-		
+		miTexturedRect.rotate(2f, 0, 1, 0);
 		miRect3.onDrawFrame();
 		miRect.onDrawFrame();
 		miRect2.onDrawFrame();
@@ -63,8 +64,9 @@ public class MiRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 arg0, EGLConfig arg1) {
 		glClearColor(0f, 1f, 0f, 1f);
-		int texture = TextureHelper.loadTexture(context, R.drawable.textura);
-		miTexturedRect = new TexturedRect(context, 0.4f, -0.4f, texture);
+		
+		miTexturedRect = new TexturedRect(context, 0.4f, -0.4f);
+		miTexturedRect.translate(0, 0, -2);
 		miRect.onSurfaceCreated();
 		miRect2.onSurfaceCreated();
 		miRect3.onSurfaceCreated();
