@@ -8,6 +8,7 @@ import org.nenocom.utils.ShaderHelper;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 
 public class UniformColorRect extends Rectangle {
 	
@@ -15,7 +16,8 @@ public class UniformColorRect extends Rectangle {
 	
 	private int uColorLocation;
 	private int shaderProgram;
-
+	
+	
 	private float red;
 	private float green;
 	private float blue;
@@ -46,19 +48,20 @@ public class UniformColorRect extends Rectangle {
 		
 		this.shaderProgram = ShaderHelper.buildProgram(vertexShaderSource, fragmentShaderSource);
 		glUseProgram(shaderProgram);
-		
 		uColorLocation = glGetUniformLocation(shaderProgram, U_COLOR);
-		super.aPositionLocation = glGetAttribLocation(shaderProgram, A_POSITION);
+		aPositionLocation = glGetAttribLocation(shaderProgram, A_POSITION);
+		
+	}
+	
+	@Override
+	public void onDrawFrame(){
+		glUseProgram(shaderProgram);
+		
 		
 		vertexData.position(0);
 		glVertexAttribPointer(aPositionLocation, COMPONENTES_POR_VERTICE, GL_FLOAT, false, 0, vertexData);
 		glEnableVertexAttribArray(aPositionLocation);
 		glUniform4f(uColorLocation, red, green, blue, 1.0f);
-	}
-	
-	@Override
-	public void onDrawFrame(){
-		
 		glDrawArrays(GL_TRIANGLES, 0, vertexData.capacity()/COMPONENTES_POR_VERTICE);
 	}
 }

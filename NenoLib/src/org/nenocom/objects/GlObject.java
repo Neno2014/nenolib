@@ -20,7 +20,8 @@ public abstract class GlObject {
 	public GlObject(Context context, float[] vertices){
 		this.context = context;
 		vertexData = ByteBuffer
-				.allocateDirect(vertices.length * BYTES_PER_FLOAT) .order(ByteOrder.nativeOrder())
+				.allocateDirect(vertices.length * BYTES_PER_FLOAT)
+				.order(ByteOrder.nativeOrder())
 				.asFloatBuffer();
 		vertexData.put(vertices);
 	}
