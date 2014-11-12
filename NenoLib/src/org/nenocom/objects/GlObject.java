@@ -23,7 +23,7 @@ public abstract class GlObject {
 	protected final FloatBuffer vertexData;
 	protected Context context;
 	
-	protected final float[] modelMatrix = new float[16];
+	protected float[] modelMatrix = new float[16];
 	protected float[] projectionMatrix;
 	protected float[] modelProjectionMatrix = new float[16];
 	

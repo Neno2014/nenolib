@@ -25,13 +25,14 @@ public class TexturedObject extends GlObject {
 	
 	private int textureId;
 	
-	public TexturedObject(Context context, float[] vertices, float[] texCoords) {
+	public TexturedObject(Context context, float[] vertices, float[] texCoords, int textId) {
 		super(context, vertices);
 		textureCoordsData = ByteBuffer
 				.allocateDirect(texCoords.length * BYTES_PER_FLOAT)
 				.order(ByteOrder.nativeOrder())
 				.asFloatBuffer();
 		textureCoordsData.put(texCoords);
+		textureId=textId;
 	}
 	
 	@Override
@@ -40,7 +41,7 @@ public class TexturedObject extends GlObject {
 				.leerTxtDeRecursos(context, R.raw.texture_vertex_shader);
 		String fragmentShaderSource = LectorDeRecursos
 				.leerTxtDeRecursos(context, R.raw.texture_fragment_shader);
-		textureId = TextureHelper.loadTexture(context, R.drawable.textura);
+		
 		shaderProgram = ShaderHelper.buildProgram(vertexShaderSource, fragmentShaderSource);
 		glUseProgram(shaderProgram);
 		
