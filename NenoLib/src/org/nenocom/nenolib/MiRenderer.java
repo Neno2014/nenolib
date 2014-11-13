@@ -1,20 +1,18 @@
 package org.nenocom.nenolib;
 
+import static android.opengl.GLES20.*;
+
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import org.nenocom.objects.ShadedRectangle;
 import org.nenocom.objects.TexturedRect;
-import org.nenocom.objects.UniformColorRect;
 import org.nenocom.utils.MatrixHelper;
 import org.nenocom.utils.TextureHelper;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.opengl.GLSurfaceView.Renderer;
-import static android.opengl.GLES20.*;
 
 public class MiRenderer implements Renderer {
 
